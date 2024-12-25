@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 
 Route::middleware([
-    'auth:sanctum',
+    'auth',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
@@ -34,10 +34,7 @@ Route::middleware([
 
 });
 
+Route::get('posts/{topic?}', [PostController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}/{slug}', [PostController::class, 'show'])->name('posts.show');
-Route::Resource('posts', PostController::class)->shallow()->only(['index']);
-//Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+//Route::Resource('posts', PostController::class)->shallow()->only(['index']);
 
-//Route::get('post-content', function () {
-//    return PostFixtures::getFixtures()->random();
-//});
