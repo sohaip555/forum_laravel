@@ -72,8 +72,6 @@ class User extends Authenticatable
         ];
     }
 
-
-
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -82,5 +80,10 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
     }
 }

@@ -27,6 +27,7 @@ it('can update comment', function () {
     actingAs($comment->user)
         ->put(route('comments.update', $comment), ['body' => $newBody]);
 
+//    dd(Comment::find($comment->id));
     $this->assertDatabaseHas(Comment::class, [
         'id' => $comment->id,
         'body' => $newBody,

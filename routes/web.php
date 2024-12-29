@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+//use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Support\PostFixtures;
 use Illuminate\Foundation\Application;
@@ -25,6 +26,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
 
     Route::Resource('posts', PostController::class)->shallow()->only(['store', 'create']);
     Route::Resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);

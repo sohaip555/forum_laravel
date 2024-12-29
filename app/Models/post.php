@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
 class post extends Model
@@ -15,6 +16,8 @@ class post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
     use ConvertsMarkdownToHtml;
+
+    protected $withCount = ['likes'];
 
     public function user(): BelongsTo
     {
@@ -29,6 +32,11 @@ class post extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
+    }
+
+    public function likes(): morphMany
+    {
+        return $this->morphMany(Like::class, 'likeable');
     }
 
     public function title(): Attribute

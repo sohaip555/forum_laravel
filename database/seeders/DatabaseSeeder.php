@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\comment;
+use App\Models\like;
 use App\Models\post;
 use App\Models\Topic;
 use App\Models\User;
@@ -26,16 +27,19 @@ class DatabaseSeeder extends Seeder
             ->recycle([$users, $topics])
             ->create();
 
-        $luke = User::factory()
+        $sohaip = User::factory()
             ->has(Post::factory(45)->recycle($topics)->withFixture())
+            ->has(like::factory(125)->forEachSequence(
+                ...$posts->random(150)->map(fn (post $post) => ['likeable_id' => $post])
+            ))
             ->create([
                 'name' => 'sohaip',
                 'email' => 'test@example.com',
                 'password' => bcrypt('password'),
             ]);
 
-        // Manually associate comments with Luke's posts
-        $luke->posts->each(function ($post) use ($users) {
+//         Manually associate comments with Luke's posts
+        $sohaip->posts->each(function ($post) use ($users) {
             Comment::factory(10)->recycle($users)->create([
                 'post_id' => $post->id,
             ]);

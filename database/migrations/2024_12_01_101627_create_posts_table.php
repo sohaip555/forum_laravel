@@ -12,13 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+//            $table->string('slug')->unique();
+
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
             $table->string('title');
-//            $table->string('slug')->unique();
             $table->longText('body');
             $table->longText('html');
+            $table->unsignedBigInteger('likes_count')->default(0);
             $table->timestamps();
         });
     }
